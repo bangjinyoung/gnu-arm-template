@@ -18,7 +18,9 @@
 			"extensions": [
 				"ms-vscode.cpptools",
 				"ms-azuretools.vscode-docker",
-				"marus25.cortex-debug"
+				"marus25.cortex-debug",
+				"twxs.cmake",
+				"ms-vscode.cpptools-extension-pack"
 			]
 		}
 	},
