@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "echo Hello",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                // "isDefault": true
+            }
+        },
+
+        {
+			"type": "shell",
+			"label": "CMake: confgiure",
+			"command": "cmake",
+			"args": [
+				"-DCMAKE_BUILD_TYPE=Debug",
+				"-DCMAKE_TOOLCHAIN_FILE=/workspaces/stm32-build/cmake/arm-gnu-toolchain.cmake",
+				"-DCMAKE_INSTALL_PREFIX=C:/workspaces/stm32-build/build/install",
+				"-B/workspaces/stm32-build/build",
+				"-S/workspaces/stm32-build",
+				"-GNinja",
+			],
+			"group": "build",
+		},
+
+        {
+			"type": "shell",
+			"label": "CMake: build",
+			"command": "cmake",
+			"args": [
+				"--build",
+				"/workspaces/stm32-build/build",
+				"--parallel",
+				"$(nproc)",
+				"--target",
+				"all",
+			],
+			"group": "build",
+		},
+    ]
+}
