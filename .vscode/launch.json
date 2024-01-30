@@ -5,9 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Cortex Debug",
+            "name": "openocd Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "./build/stm32-build.elf",
+            "executable": "./build/${workspaceFolderBasename}.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",

@@ -20,10 +20,10 @@
 			"command": "cmake",
 			"args": [
 				"-DCMAKE_BUILD_TYPE=Debug",
-				"-DCMAKE_TOOLCHAIN_FILE=/workspaces/stm32-build/cmake/arm-gnu-toolchain.cmake",
-				"-DCMAKE_INSTALL_PREFIX=C:/workspaces/stm32-build/build/install",
-				"-B/workspaces/stm32-build/build",
-				"-S/workspaces/stm32-build",
+				"-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cmake/arm-gnu-toolchain.cmake",
+				"-DCMAKE_INSTALL_PREFIX=C:${workspaceFolder}/build/install",
+				"-B${workspaceFolder}/build",
+				"-S${workspaceFolder}",
 				"-GNinja",
 			],
 			"group": "build",
@@ -35,7 +35,7 @@
 			"command": "cmake",
 			"args": [
 				"--build",
-				"/workspaces/stm32-build/build",
+				"${workspaceFolder}/build",
 				"--parallel",
 				"$(nproc)",
 				"--target",
