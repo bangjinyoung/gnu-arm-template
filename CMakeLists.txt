@@ -2,13 +2,25 @@ cmake_minimum_required(VERSION 3.22.1)
 
 set(CMAKE_C_COMPILER_WORKS TRUE)
 
-# Edit project name
-project(gnu-arm-template)
-
 enable_language(C ASM)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
+
+# Edit project name
+project(gnu-arm-template)
+
+# Edit CPU options
+set(CPU_OPTIONS
+        # -mcpu=cortex-m4
+        # -mthumb
+        # -mfpu=fpv4-sp-d16
+        # -mfloat-abi=hard
+)
+
+# Edit Link script file
+set(LINK_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/FLASH.ld)
+
 
 # Add C source files
 set(C_SOURCES
@@ -32,11 +44,7 @@ target_include_directories(${EXECUTABLE} PRIVATE
 
 # Add compile options
 target_compile_options(${EXECUTABLE} PRIVATE
-        # Add cpu options
-        # -mcpu=cortex-m4
-        # -mthumb
-        # -mfpu=fpv4-sp-d16
-        # -mfloat-abi=hard
+        ${CPU_OPTIONS}
         
         -Og
 
@@ -50,16 +58,11 @@ target_compile_options(${EXECUTABLE} PRIVATE
 
 # Add link options
 target_link_options(${EXECUTABLE} PRIVATE
-        # Add cpu options
-        # -mcpu=cortex-m4
-        # -mthumb
-        # -mfpu=fpv4-sp-d16
-        # -mfloat-abi=hard
-        
+        ${CPU_OPTIONS}
+
         -specs=nano.specs
 
-        # Add linkfile file
-        # -T/workspaces/Proejct/FLASH.ld
+        -T${LINK_SCRIPT}
         -Wl,-Map=${PROJECT_NAME}.map,--cref
         -Wl,--gc-sections
         -Wl,--no-warn-rwx-segments
