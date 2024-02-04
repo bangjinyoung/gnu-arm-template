@@ -43,5 +43,16 @@
 			],
 			"group": "build",
 		},
+
+		{
+			"type": "shell",
+			"label": "CMake: clean",
+			"command": "rm",
+			"args": [
+				"-fR",
+				"${workspaceFolder}/build"
+			],
+			"group": "build",
+		},
     ]
 }
