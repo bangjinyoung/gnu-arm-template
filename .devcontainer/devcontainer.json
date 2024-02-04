@@ -17,13 +17,15 @@
 		"vscode": {
 			"extensions": [
 				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-themes",
+				"ms-vscode.cpptools-extension-pack",
 				"ms-azuretools.vscode-docker",
-				"marus25.cortex-debug",
 				"twxs.cmake",
-				"ms-vscode.cpptools-extension-pack"
+				"marus25.cortex-debug",
+				"llvm-vs-code-extensions.vscode-clangd"
 			]
 		}
-	},
+	}
 
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

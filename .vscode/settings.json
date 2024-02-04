@@ -1,0 +1,10 @@
+{
+    "cortex-debug.variableUseNaturalFormat": false,
+    "C_Cpp.autocomplete": "disabled",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": [
+        "--query-driver=/opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-header-insertion=never",
+        "--compile-commands-dir=${workspaceFolder}/build",
+    ],
+}
