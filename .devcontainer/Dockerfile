@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
 	git \
 	stlink-tools \
 	curl \
-	usbutils
+	usbutils \
+	minicom
 
 # Downlaod ARM GNU Toolchain
 WORKDIR /opt
