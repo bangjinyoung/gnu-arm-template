@@ -67,6 +67,7 @@ target_link_options(${EXECUTABLE} PRIVATE
         -Wl,-Map=${PROJECT_NAME}.map,--cref
         -Wl,--gc-sections
         -Wl,--no-warn-rwx-segments
+        -Wl,--print-memory-usage
 )
 
 # Print file size
