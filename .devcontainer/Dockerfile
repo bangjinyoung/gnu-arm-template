@@ -70,6 +70,11 @@ RUN git clone https://github.com/openocd-org/openocd \
 	&& make \
 	&& make install
 
+# Add .gitconfig project
+WORKDIR /home
+
+RUN git clone --recurse-submodules https://github.com/bangjinyoung/git-config
+
 # Add Toolchain to PATH
 ENV PATH="$PATH:/opt/arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-arm-none-eabi/bin"
 ENV PATH="$PATH:/opt/openocd/src/openocd"
