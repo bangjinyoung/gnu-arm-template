@@ -1,1 +1,20 @@
+# auto for anything unspecified
 * text=auto
+
+# sources
+*.c         text eol=lf
+*.h         text eol=lf
+*.sh        text eol=lf
+*.json      text eol=lf
+
+# CMake files
+*.cmake     text eol=lf
+
+# documents
+*.txt        text eol=lf
+*.md         text eol=lf
+LICENSE      text eol=lf
+
+# output files
+*.hex binary
+*.bin binary
