@@ -24,7 +24,8 @@ set(LINK_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/FLASH.ld)
 
 
 # Add C source files
-set(C_SOURCES
+file(GLOB C_SOURCES CONFIGURE_DEPENDS
+
 )
 
 # Add assembly files
