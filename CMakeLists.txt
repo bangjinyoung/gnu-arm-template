@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-set(CMAKE_C_COMPILER_WORKS TRUE)
-
 enable_language(C ASM)
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_EXTENSIONS ON)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Edit project name
@@ -48,27 +47,34 @@ target_include_directories(${EXECUTABLE} PRIVATE
 target_compile_options(${EXECUTABLE} PRIVATE
         ${CPU_OPTIONS}
         
-        -Og
+        $<$<CONFIG:Debug>:-Og -g3 -ggdb>
+        $<$<CONFIG:Release>:-Og -g0>
 
         -Wall
         -fdata-sections
         -ffunction-sections
+        -fdiagnostics-color=always
 
-        -g 
-        -gdwarf-2
+        $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp>
+
+        --specs=nano.specs
 )
 
 # Add link options
 target_link_options(${EXECUTABLE} PRIVATE
         ${CPU_OPTIONS}
 
-        -specs=nano.specs
-
         -T${LINK_SCRIPT}
-        -Wl,-Map=${PROJECT_NAME}.map,--cref
+
+        -Wl,-Map=${PROJECT_NAME}.map
         -Wl,--gc-sections
+        -Wl,--start-group -lc -lm
+        -Wl,--end-group
         -Wl,--no-warn-rwx-segments
         -Wl,--print-memory-usage
+
+        --specs=nano.specs
+        # -u _printf_float
 )
 
 # Print file size
