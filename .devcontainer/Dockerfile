@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 	minicom
 
 # Downlaod ARM GNU Toolchain
-WORKDIR /opt
+WORKDIR /opt/arm-gnu-toolchain
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
 		export HOST_ARCH=x86_64; \
@@ -25,14 +25,16 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
 		export HOST_ARCH=aarch64; \
     fi \
 		&& echo "Downloading ARM GNU Toolchain URL: https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOOLCHAIN_VERSION}/binrel/arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-${HOST_ARCH}-arm-none-eabi.tar.xz" >> /log \
-		&& curl -Lo arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOOLCHAIN_VERSION}/binrel/arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-${HOST_ARCH}-arm-none-eabi.tar.xz" \
-		&& tar xf arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-arm-none-eabi.tar.xz \
-		&& rm arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-arm-none-eabi.tar.xz
+		&& curl -Lo ${ARM_GNU_TOOLCHAIN_VERSION}.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOOLCHAIN_VERSION}/binrel/arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-${HOST_ARCH}-arm-none-eabi.tar.xz" \
+		&& mkdir ${ARM_GNU_TOOLCHAIN_VERSION} \
+		&& tar xf 13.2.rel1.tar.xz -C ./${ARM_GNU_TOOLCHAIN_VERSION} --strip-components=1 \
+		&& rm ${ARM_GNU_TOOLCHAIN_VERSION}.tar.xz
 
 # Install packages(libncursesw5, python 3.8) for arm-none-eabi-gdb
-RUN apt-get install -y libncursesw5
+WORKDIR /opt
 
-RUN apt-get install -y zlib1g-dev \
+RUN apt-get install -y libncursesw5 \
+						zlib1g-dev \
 						libncurses5-dev \
 						libgdbm-dev \
 						libnss3-dev \
@@ -46,9 +48,8 @@ RUN curl -Lo Python-3.8.0.tgz "https://www.python.org/ftp/python/3.8.0/Python-3.
 	&& tar -xf Python-3.8.0.tgz \
 	&& rm Python-3.8.0.tgz
 
-WORKDIR /opt/Python-3.8.0
-
-RUN ./configure --enable-optimizations \
+RUN cd Python-3.8.0 \
+	&& ./configure --enable-optimizations \
 	&& make -j $(nproc) \
 	&& make altinstall
 
@@ -75,6 +76,6 @@ WORKDIR /home
 
 RUN git clone --recurse-submodules https://github.com/bangjinyoung/git-config
 
-# Add Toolchain to PATH
-ENV PATH="$PATH:/opt/arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-arm-none-eabi/bin"
+# # Add Toolchain to PATH
+ENV PATH="$PATH:/opt/arm-gnu-toolchain/${ARM_GNU_TOOLCHAIN_VERSION}/bin"
 ENV PATH="$PATH:/opt/openocd/src/openocd"
