@@ -25,8 +25,15 @@
 				"llvm-vs-code-extensions.vscode-clangd"
 			]
 		}
-	}
+	},
 
+	"runArgs": [
+		"--name", "gcc-arm-none-eabi"
+    ],
+
+	"mounts": [
+		{ "source": "/dev", "target": "/dev", "type": "bind" }
+	]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
